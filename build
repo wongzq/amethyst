@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker build -f Dockerfile --platform linux/amd64 -t wongzq/amethyst:latest .
+docker push wongzq/amethyst:latest

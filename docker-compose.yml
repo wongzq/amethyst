@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  amethyst:
+    container_name: amethyst
+    image: wongzq/amethyst:latest
+    restart: always
+    env_file:
+      - .amethyst.env
+
+volumes:
+  mysql-data: null
