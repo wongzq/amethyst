@@ -1,6 +1,5 @@
 import { Client, IntentsBitField } from "discord.js";
 import { parseEmoji } from "./utils/emojis.util";
-import { convertImageURLtoURI } from "./utils/image.util";
 import Env from "./env";
 
 const client = new Client({
@@ -14,29 +13,26 @@ const client = new Client({
 
 client.login(Env.DISCORD_APP_TOKEN);
 
-client.on("ready", () => console.log("amethyst is ready"));
+client.on("ready", () => {
+  console.log("amethyst is ready");
+});
 
+// emoji factory
 client.on("messageCreate", async (message) => {
   try {
-    const emoji = parseEmoji(message.content);
-
     if (!message.guild) return;
-    if (!Env.ALLOWED_CHANNEL_IDS.includes(message.channel.id)) return;
+    if (!Env.ALLOWED_EMOJI_CHANNEL_IDS.includes(message.channel.id)) return;
     if (!Env.ALLOWED_USER_IDS.includes(message.author.id)) return;
+
+    const emoji = await parseEmoji(message.content);
     if (!emoji) return;
 
     let successfullyAddedEmoji = false;
 
-    const imageURL = emoji.animated
-      ? `https://cdn.discordapp.com/emojis/${emoji.id}.gif`
-      : `https://cdn.discordapp.com/emojis/${emoji.id}.png`;
-
-    const imageURI = await convertImageURLtoURI(imageURL);
-
-    if (imageURI) {
+    if (emoji) {
       const newEmoji = await message.guild.emojis.create({
-        name: `uu_${emoji.name}`,
-        attachment: imageURI,
+        name: emoji.name,
+        attachment: emoji.uri,
       });
 
       const reply = newEmoji.animated
@@ -44,7 +40,6 @@ client.on("messageCreate", async (message) => {
         : `成功加了表情包！:blush: \`:${newEmoji.name}:\` <:${newEmoji.name}:${newEmoji.id}>`;
 
       message.reply(reply);
-      console.log(reply);
 
       successfullyAddedEmoji = true;
     }

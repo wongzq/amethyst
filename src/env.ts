@@ -26,7 +26,9 @@ const getEnvValues = (key: string) => {
 
 const Env = {
   DISCORD_APP_TOKEN: getEnvValue("DISCORD_APP_TOKEN"),
-  ALLOWED_CHANNEL_IDS: getEnvValues("ALLOWED_CHANNEL_IDS"),
+
+  ALLOWED_EMOJI_CHANNEL_IDS: getEnvValues("ALLOWED_EMOJI_CHANNEL_IDS"),
+
   ALLOWED_USER_IDS: getEnvValues("ALLOWED_USER_IDS"),
 };
 
