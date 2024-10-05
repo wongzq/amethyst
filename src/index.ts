@@ -1,6 +1,7 @@
-import { Client, IntentsBitField } from "discord.js";
-import { parseEmoji } from "./utils/emojis.util";
-import Env from "./env";
+import { Client, IntentsBitField } from 'discord.js';
+
+import Env from './env';
+import { parseEmoji } from './utils/emojis.util';
 
 const client = new Client({
   intents: [
@@ -13,12 +14,12 @@ const client = new Client({
 
 client.login(Env.DISCORD_APP_TOKEN);
 
-client.on("ready", () => {
-  console.log("amethyst is ready");
+client.on('ready', () => {
+  console.log('amethyst is ready');
 });
 
 // emoji factory
-client.on("messageCreate", async (message) => {
+client.on('messageCreate', async (message) => {
   try {
     if (!message.guild) return;
     if (!Env.ALLOWED_EMOJI_CHANNEL_IDS.includes(message.channel.id)) return;
@@ -45,13 +46,13 @@ client.on("messageCreate", async (message) => {
     }
 
     if (!successfullyAddedEmoji) {
-      throw Error("不懂为什么，无法加表情包 :thinking:");
+      throw Error('不懂为什么，无法加表情包 :thinking:');
     }
   } catch (err) {
     message.reply(
       `不好意思，这里出了问题 :sweat:\n` +
         `求求你帮我嘛，我看不明白呢 :face_holding_back_tears:\n` +
-        `\`\`\`\n${String(err)}\`\`\``
+        `\`\`\`\n${String(err)}\`\`\``,
     );
   }
 });

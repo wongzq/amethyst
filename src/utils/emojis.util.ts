@@ -1,4 +1,4 @@
-import { convertImageURLtoURI, EMimeType } from "./image.util";
+import { EMimeType, convertImageURLtoURI } from './image.util';
 
 export const parseEmoji = async (content: string) => {
   // animated emoji content <a:pepedistraught:1238422605782847599>
@@ -16,7 +16,7 @@ export const parseEmoji = async (content: string) => {
     // remove leading '<a:' and trailing '>'
     const [_emojiName, _emojiId] = content
       .substring(3, content.length - 1)
-      .split(":");
+      .split(':');
 
     emojiName = _emojiName;
 
@@ -26,7 +26,7 @@ export const parseEmoji = async (content: string) => {
     // remove leading '<:' and trailing '>'
     const [_emojiName, _emojiId] = content
       .substring(2, content.length - 1)
-      .split(":");
+      .split(':');
 
     emojiName = _emojiName;
 

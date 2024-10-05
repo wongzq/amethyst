@@ -1,13 +1,16 @@
-import { Base64Encode } from "base64-stream";
-import axios from "axios";
+import axios from 'axios';
+import { Base64Encode } from 'base64-stream';
 
 export enum EMimeType {
-  PNG = "image/png",
-  GIF = "image/gif",
+  PNG = 'image/png',
+  GIF = 'image/gif',
 }
 
-export const convertImageURLtoURI = async (url: string, mimeType: EMimeType) => {
-  const res = await axios.get(url, { responseType: "stream" });
+export const convertImageURLtoURI = async (
+  url: string,
+  mimeType: EMimeType,
+) => {
+  const res = await axios.get(url, { responseType: 'stream' });
 
   const base64string = await new Promise<string | null>((resolve, reject) => {
     if (!res.data) {
@@ -18,11 +21,11 @@ export const convertImageURLtoURI = async (url: string, mimeType: EMimeType) => 
 
     const stream = res.data.pipe(new Base64Encode());
 
-    stream.on("data", (chunk: any) => {
+    stream.on('data', (chunk: any) => {
       chunks = chunks.concat(chunk);
     });
 
-    stream.on("end", () => {
+    stream.on('end', () => {
       resolve(chunks.toString());
     });
   });

@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 
 config();
 
@@ -19,17 +19,17 @@ const getEnvValues = (key: string) => {
     throw Error(`env var not found for: ${key}`);
   }
 
-  const values = value.split(",").map((o) => o.trim());
+  const values = value.split(',').map((o) => o.trim());
 
   return values;
 };
 
 const Env = {
-  DISCORD_APP_TOKEN: getEnvValue("DISCORD_APP_TOKEN"),
+  DISCORD_APP_TOKEN: getEnvValue('DISCORD_APP_TOKEN'),
 
-  ALLOWED_EMOJI_CHANNEL_IDS: getEnvValues("ALLOWED_EMOJI_CHANNEL_IDS"),
+  ALLOWED_EMOJI_CHANNEL_IDS: getEnvValues('ALLOWED_EMOJI_CHANNEL_IDS'),
 
-  ALLOWED_USER_IDS: getEnvValues("ALLOWED_USER_IDS"),
+  ALLOWED_USER_IDS: getEnvValues('ALLOWED_USER_IDS'),
 };
 
 export default Env;
